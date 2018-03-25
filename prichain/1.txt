@@ -1,0 +1,17 @@
+I0321 15:03:10.219805 node/config.go:445] Failed to start Ledger hub, disabling: libusb: not found [code -5]
+I0321 15:03:10.319072 cmd/utils/flags.go:613] WARNING: No etherbase set and no accounts found as default
+I0321 15:03:10.320070 ethdb/database.go:83] Allotted 128MB cache and 1024 file handles to C:\Users\fjh1997\Desktop\eth\prichain\prichain\geth\chaindata
+I0321 15:03:10.334107 ethdb/database.go:176] closed db:C:\Users\fjh1997\Desktop\eth\prichain\prichain\geth\chaindata
+I0321 15:03:10.340123 node/node.go:176] instance: Geth/szetherum/v1.5.9-stable/windows/go1.7.4
+I0321 15:03:10.340123 ethdb/database.go:83] Allotted 128MB cache and 1024 file handles to C:\Users\fjh1997\Desktop\eth\prichain\prichain\geth\chaindata
+I0321 15:03:10.361178 eth/backend.go:187] Protocol Versions: [63 62], Network Id: 6500
+I0321 15:03:10.810372 eth/backend.go:205] WARNING: Wrote default ethereum genesis block
+I0321 15:03:10.810372 eth/backend.go:215] Chain config: {ChainID: 1 Homestead: 1150000 DAO: 1920000 DAOSupport: true EIP150: 2463000 EIP155: 2675000 EIP158: 2675000}
+I0321 15:03:10.811376 core/blockchain.go:219] Last header: #0 [d4e56740…] TD=17179869184
+I0321 15:03:10.811376 core/blockchain.go:220] Last block: #0 [d4e56740…] TD=17179869184
+I0321 15:03:10.811376 core/blockchain.go:221] Fast block: #0 [d4e56740…] TD=17179869184
+I0321 15:03:10.811376 p2p/server.go:340] Starting Server
+I0321 15:03:12.925995 p2p/discover/udp.go:227] Listening, enode://19aa248530ed2fe9d99620e02f2d4ea0f38bba3c56510fe62fe5c9cdee7d7dbceb8f6edeaa5d63159fd42996c5b026086d434f33f5a89e631f3f72eb1b325b77@[::]:30303
+I0321 15:03:12.925995 p2p/server.go:608] Listening on [::]:30303
+I0321 15:03:12.928001 node/node.go:341] IPC endpoint opened: \\.\pipe\geth.ipc
+I0321 15:03:12.941035 node/node.go:411] HTTP endpoint opened: http://localhost:8545
