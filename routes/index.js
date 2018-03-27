@@ -418,13 +418,12 @@ var cBalance = c.balanceOf(web3.eth.accounts[1]);
 router.post('/buy',function(req,res,next){
 	var account1 = web3.eth.accounts[0];
 	var account2 = web3.eth.accounts[1];
-	var sage = req.body.sage;
-	var arr = sage.split(" ");
-	var amount = parseInt(arr[0]);
-	var sort = arr[1];
+	var sort = req.body.sort;
+	var amount = req.body.amount;
 	var hash = "";
-	console.log(account1,account2,sage,arr,amount,sort,hash);
+	console.log(account1,account2,amount,sort,hash);
 	console.log("sort",sort);
+	console.log("amount",amount);
 	switch (sort){
 		case "A" :
 			hash = a.transfer(account1,amount,{from:account2});
