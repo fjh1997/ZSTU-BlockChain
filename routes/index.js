@@ -425,13 +425,13 @@ router.post('/buy',function(req,res,next){
 	console.log("sort",sort);
 	console.log("amount",amount);
 	switch (sort){
-		case "A" :
+		case "人民币" :
 			hash = a.transfer(account1,amount,{from:account2});
 			break;
-	    case "B" :
+	    case "美元" :
 			hash = b.transfer(account1,amount,{from:account2});
 			break;
-		case "C" :
+		case "日元" :
 			hash = c.transfer(account1,amount,{from:account2});
 			break;
 		default:

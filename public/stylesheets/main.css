@@ -111,6 +111,7 @@ td { overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
 	width: 1155px;
 	height:430px;
 	float: left;
+	overflow:auto;
 }
 .blockchain{
 	width: 1155px;
@@ -130,7 +131,7 @@ td { overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
 
 .product img{
 	height: 100px;
-	width: 100px;
+	width: 140px;
 	border-bottom: 1px solid lightgray;
 }
 .trans{
