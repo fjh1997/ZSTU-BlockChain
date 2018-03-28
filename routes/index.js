@@ -474,17 +474,17 @@ router.post("/send",function(req,res,next){
 	var amount = req.body.amount;
 	var sort = req.body.sort;
 	var hash = "";
-	console.log(account1,account2,sage,arr,amount,sort,hash);
+	console.log(account1,account2,amount,sort,hash);
 
 	switch (sort){
-		case "A" :
-			hash = a.transfer(account1,amount,{from:account2});
+		case "人民币" :
+			hash = a.transfer(account2,amount,{from:account1});
 			break;
-	    case "B" :
-			hash = b.transfer(account1,amount,{from:account2});
+	    case "美元" :
+			hash = b.transfer(account2,amount,{from:account1});
 			break;
-		case "C" :
-			hash = c.transfer(account1,amount,{from:account2});
+		case "日元" :
+			hash = c.transfer(account2,amount,{from:account1});
 			break;
 		default:
 			console.log("nothing");

@@ -49,9 +49,9 @@
 					<div class="btn-primary notory-user col-sm-6">
 						<span><i class="glyphicon glyphicon-user notoryFont"></i></span>
 						<div>账户:&nbsp;<span id="account"><%-account%></span></div>
-						<div style="margin-left: 55px">积分A:&nbsp;<span id="balance"><%-aBalance%> </span></div>
-						<div style="margin-left: 55px">积分B:&nbsp;<span id="balance" ><%-bBalance%> </span></div>
-						<div style="margin-left: 55px">积分C:&nbsp;<span id="balance"><%-cBalance%> </span></div>
+						<div style="margin-left: 55px">人民币:&nbsp;<span id="balance"><%-aBalance%> </span></div>
+						<div style="margin-left: 55px">美元:&nbsp;<span id="balance" ><%-bBalance%> </span></div>
+						<div style="margin-left: 55px">:&nbsp;<span id="balance"><%-cBalance%> </span></div>
 					</div>
 				</div>
 				<div style="margin-top: 10px;">
@@ -60,7 +60,7 @@
 						<div class="form-group notoryHasPos">
 							<label class="col-sm-3 control-label"></label>
 								<div class="col-sm-6" style="position: relative;">
-									<input type="text" class="form-control" id="give" name="sender" placeholder="赠送者">
+									<input type="text" class="form-control" id="give" name="sender" placeholder="捐赠者">
 									<span><i class="glyphicon glyphicon-user glyphicon-user-0"></i></span>
 									<div class="content-give">
 										<table>
@@ -72,7 +72,7 @@
 							<div class="form-group notoryHasPos">
 								<label class="col-sm-3 control-label"></label>
 								<div class="col-sm-6" style="position: relative;">
-									<input type="text" class="form-control" id="res" name="reciever" placeholder="接收者">
+									<input type="text" class="form-control" id="res" name="reciever" placeholder="受赠者">
 									<span><i class="glyphicon glyphicon-user glyphicon-user-1"></i></span>
 									<div class="content-res">
 										<table>
@@ -93,11 +93,11 @@
 							<div class="form-group notoryHasPos">
 							<label class="col-sm-3 control-label"></label>
 							<div class="col-sm-6">
-								<select class="form-control">
-									<option selected="selected">选择积分种类</option>
-									<option>积分A</option>
-									<option>积分B</option>
-									<option>积分C</option>
+								<select class="form-control" id="sort">
+									<option selected="selected">选择货币种类</option>
+									<option>人民币</option>
+									<option>美元</option>
+									<option>日元</option>
 								</select>
 								<br>
 								<input class="btn btn-info " type="button" onclick="sendTransaction()" value="赠送">
@@ -148,13 +148,13 @@
 			var account1 = $("#give").val();
 			var account2 = $("#res").val();
 			var amount = $("#ether").val();
-			var sage = $(this).parent().find("option:selected").text();
-			var sort = sage[2];
-			console.log(account1,account2,amount);
+			var sort = $("#sort").val();
+			
+			console.log(account1,account2,amount,sort);
 			$.post("/send",{account1:account1,account2:account2,amount:amount,sort:sort},function(result){
 				console.log(result);
 			})
 		}
 	</script>
 	</body>
-</html>
+</html>SS
