@@ -408,11 +408,30 @@ router.get('/dataJson',function(req,res,next){
 })
 
 router.get('/exchange',function(req,res,next){
-	var aBalance = a.balanceOf(web3.eth.accounts[1]);
+		var aBalance = a.balanceOf(web3.eth.accounts[1]);
 var bBalance = b.balanceOf(web3.eth.accounts[1]);
 var cBalance = c.balanceOf(web3.eth.accounts[1]);
 
-	res.render('exchange',{"aBalance":aBalance,"bBalance":bBalance,"cBalance":cBalance})
+	var blockNumber = web3.eth.blockNumber
+	var tran =[];
+        var index = 0;
+       
+
+        for(var i= 445;i<=blockNumber;i++){
+        	var transactions=web3.eth.getBlock(i).transactions;
+           console.log(transactions.length);
+           if (transactions.length!=0) { 
+           	
+            for(var j= 0;j<transactions.length;j++){
+
+            console.log(web3.eth.getTransaction(transactions[j]).from);
+           	if(web3.eth.getTransaction(transactions[j]).from==0x753A302E3cF6418192c1eAb814C3fB9a60539a36){
+            tran[index]=web3.eth.getTransaction(transactions[j]);
+            index++;}
+            }}
+        }
+	console.log(tran);
+  res.render('exchange',{"tran":tran,"aBalance":aBalance,"bBalance":bBalance,"cBalance":cBalance})
 })
 
 router.post('/buy',function(req,res,next){
