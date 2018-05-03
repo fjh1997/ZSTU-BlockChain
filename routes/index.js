@@ -307,12 +307,13 @@ var b = web3.eth.contract(abi).at(bAddress);
 var cAddress = "0x7fd7bf87b749ba74ecd70076fa24b7c3481cc2e0"
 var c = web3.eth.contract(abi).at(cAddress);
 //账户积分余额
-
+var aBalance = a.balanceOf(web3.eth.accounts[1]);
+    var bBalance = b.balanceOf(web3.eth.accounts[1]);
+    var cBalance = c.balanceOf(web3.eth.accounts[1]);
+var url="";
 /* GET home page. */
 router.get('/index', function(req, res, next) {
-	var aBalance = a.balanceOf(web3.eth.accounts[1]);
-var bBalance = b.balanceOf(web3.eth.accounts[1]);
-var cBalance = c.balanceOf(web3.eth.accounts[1]);
+
 
     res.render('index',{"aBalance":aBalance,"bBalance":bBalance,"cBalance":cBalance})
 })
@@ -408,9 +409,6 @@ router.get('/dataJson',function(req,res,next){
 })
 
 router.get('/exchange',function(req,res,next){
-		var aBalance = a.balanceOf(web3.eth.accounts[1]);
-var bBalance = b.balanceOf(web3.eth.accounts[1]);
-var cBalance = c.balanceOf(web3.eth.accounts[1]);
 
 	var blockNumber = web3.eth.blockNumber
 	var tran =[];
@@ -444,13 +442,13 @@ router.post('/buy',function(req,res,next){
 	console.log("sort",sort);
 	console.log("amount",amount);
 	switch (sort){
-		case "人民币" :
+		case "支付宝" :
 			hash = a.transfer(account1,amount,{from:account2});
 			break;
-	    case "美元" :
+	    case "微信" :
 			hash = b.transfer(account1,amount,{from:account2});
 			break;
-		case "日元" :
+		case "余额" :
 			hash = c.transfer(account1,amount,{from:account2});
 			break;
 		default:
@@ -461,21 +459,53 @@ router.post('/buy',function(req,res,next){
     res.send({hash:hash});
 })
 
-router.get('/trans', function(req, res, next) {
-	var account = web3.eth.accounts[1];
-	var accounts = web3.eth.accounts;
-	console.log(accounts)
-	var aBalance = a.balanceOf(web3.eth.accounts[1]);
-var bBalance = b.balanceOf(web3.eth.accounts[1]);
-var cBalance = c.balanceOf(web3.eth.accounts[1]);
 
-  res.render('trans',{"account":account,"accounts":accounts,"aBalance":aBalance,"bBalance":bBalance,"cBalance":cBalance})
+router.get('/trans', function(req, res, next) {
+	var sort = req.query.sort;
+	var string="";	
+    console.log(sort);
+    switch (sort){
+		case "xwxx" :
+			string="希望小学是社会上一种公益活动，目的在于通过援助资金、物资等有意义的活动，帮助落后省份、县、市、乡镇等地方建校办学，或对接贫困学生，或长期在教育教学方面全面帮助提高，以此给一个地方带 来希望与梦想，尽快致富奔小康。";
+			break;
+	    case "hsjz" :
+			string="水灾威胁人民生命安全。造成巨大财产损失，并对社会经济发展产生深远的不良影响。防治水灾虽已成为世界各国保证社会安定和经济发展的重要公共安全保障事业。但根除是困难的。至今世界上水灾仍是一种影响最大的自然灾害。";
+			break;
+		case "pkzx" :
+			string="在中国，由于儿童福利制度尚未完善，他们有的甚至吃不饱饭、无人照顾。儿童福利示范项目为每个村设立了儿童福利主任，由他来了解掌握每个困境儿童的情况，为儿童及其家庭提供急需的福利支持，从而建立起深入村级、综合全面的儿童社会福利体系。";
+			break;
+		case "zszl" :
+			sort="zszl";
+			break;
+	    case "kqzl" :
+			sort="kqzl";
+			break;
+		case "ylzc" :
+			sort="ylzc";
+			break;
+		case "zjfp" :
+			sort="jzfp";
+			break;
+	    case "wszl" :
+			sort="wszl";
+			break;
+		case "gjjz" :
+			sort="gjjz";
+			break;
+		case "gfsy" :
+			sort="gfsy";
+			break;
+		default:
+			console.log("nothing");
+			break;
+		}
+	console.log(string);
+	url="http://localhost:3000/images/"+sort+".jpg";
+	res.render('trans',{"sort":sort,"string":string,"url":url,"aBalance":aBalance,"bBalance":bBalance,"cBalance":cBalance})
 })
 
 router.get('/blockchain', function(req, res, next) {
-	var aBalance = a.balanceOf(web3.eth.accounts[1]);
-var bBalance = b.balanceOf(web3.eth.accounts[1]);
-var cBalance = c.balanceOf(web3.eth.accounts[1]);
+
 
 	var blockNumber = web3.eth.blockNumber
 	var blocksInfo = new Array()
@@ -522,9 +552,7 @@ router.get("/unlock",function(req,res,next){
 })
 
 router.get("/transInfo",function(req,res,next){
-	var aBalance = a.balanceOf(web3.eth.accounts[1]);
-var bBalance = b.balanceOf(web3.eth.accounts[1]);
-var cBalance = c.balanceOf(web3.eth.accounts[1]);
+
 
 	var hash = req.query.hash;
 	console.log(hash);

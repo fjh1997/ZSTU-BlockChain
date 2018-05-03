@@ -177,3 +177,17 @@ background-color: lightgray;
 	margin-top: 4px;
 	margin-bottom: 4px;
 }
+.content1{  
+    width: 400px;  
+    height: auto;  
+    word-wrap:break-word;  
+    word-break:break-all;  
+    overflow: hidden;  
+    margin-left: 40px;
+    float:left;
+}  
+.#don{
+	position:relative;
+	top:1px;
+	left:1000px;
+}
