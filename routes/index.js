@@ -2,7 +2,8 @@
 var router = express.Router()
 var Web3 = require('web3')
 var web3 = new Web3()
-web3.setProvider(new web3.providers.HttpProvider('http://localhost:8545'))
+var net = require('net');
+web3.setProvider(new web3.providers.IpcProvider("\\\\.\\pipe\\geth.ipc",net))
 var abi = [
 	{
 		"constant": true,
@@ -300,6 +301,7 @@ var abi = [
 ]
 var aAddress = "0x89a6571dB474f1C94D0E693e2De0c4722bD8221E"
 var a = web3.eth.contract(abi).at(aAddress);
+
 //积分B
 var bAddress = "0xff9239d924d5b7e023a974fe1472793b63528ed2"
 var b = web3.eth.contract(abi).at(bAddress);
@@ -307,11 +309,44 @@ var b = web3.eth.contract(abi).at(bAddress);
 var cAddress = "0x7fd7bf87b749ba74ecd70076fa24b7c3481cc2e0"
 var c = web3.eth.contract(abi).at(cAddress);
 //账户积分余额
-var aBalance = a.balanceOf(web3.eth.accounts[1]);
-    var bBalance = b.balanceOf(web3.eth.accounts[1]);
-    var cBalance = c.balanceOf(web3.eth.accounts[1]);
+var address1
+web3.eth.getAccounts(get);
+var aBalance;
+function get(error, result){
+    if(!error){
+    	console.log(result);
+        address1=result[1];
+       // console.log(address1);
+       a.balanceOf(address1,assign);
+    }
+
+    else
+        console.error(error);
+}
+console.log(address1);
+
+
+
+function assign(error, result){
+    if(!error){
+    	aBalance=result;
+    }
+
+    else
+        console.error(error);
+}
+
+var bBalance =0;
+b.balanceOf(address1, function(error, result){bBalance =result});
+var cBalance =0;
+c.balanceOf(address1, function(error, result){cBalance =result});
 var url="";
 /* GET home page. */
+router.get('/page', function(req, res, next) { 
+
+    res.render('page',{"aBalance":aBalance,"bBalance":bBalance,"cBalance":cBalance})
+})
+
 router.get('/index', function(req, res, next) {
 
 
@@ -504,17 +539,48 @@ router.get('/trans', function(req, res, next) {
 	res.render('trans',{"sort":sort,"string":string,"url":url,"aBalance":aBalance,"bBalance":bBalance,"cBalance":cBalance})
 })
 
+
+
+
+
 router.get('/blockchain', function(req, res, next) {
 
+    var blocksInfo = new Array()
+	web3.eth.getBlockNumber(callback1)
+	var i;
+	var blockNumber;
+	
+function callback1(error,result)
+{
+	if(!error){
+    	blockNumber=result;
+     	i= blockNumber;
+         web3.eth.getBlock(i,callback2);
+               
+        
+    }
 
-	var blockNumber = web3.eth.blockNumber
-	var blocksInfo = new Array()
-        var index = 0
-        for(var i= blockNumber;i>blockNumber-10;i--){
-            blocksInfo[index] = web3.eth.getBlock(i)
-            index++
+    else
+        console.error(error);
+}
+function callback2(error, result){
+    if(!error){
+        if(i>blockNumber-10){
+            blocksInfo[blockNumber-i]=result;
+        	i--;
+        	web3.eth.getBlock(i,callback2);
+        	
         }
-  res.render('blockchain',{"blocksInfo":blocksInfo,"blockNumber":blockNumber,"aBalance":aBalance,"bBalance":bBalance,"cBalance":cBalance})
+        if(i==blockNumber-10) return res.render('blockchain',{"blocksInfo":blocksInfo,"blockNumber":blockNumber,"aBalance":aBalance,"bBalance":bBalance,"cBalance":cBalance});
+         
+    }
+
+    else
+        console.error(error);
+}
+	
+        
+  
 })
 
 router.post("/send",function(req,res,next){
